@@ -1,0 +1,17 @@
+{
+  "name": "project_yt",
+  "version": "1.0.0",
+  "description": "\"project for backed learning\"",
+  "keywords": [
+    "javascript",
+    "backend",
+    "chai"
+  ],
+  "license": "ISC",
+  "author": "AKASH D",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+}
