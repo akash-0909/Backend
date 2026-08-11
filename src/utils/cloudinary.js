@@ -21,3 +21,5 @@ const uploadOnCloudinary = async (filePath) => {
         throw error;
     }
 }
+
+export { uploadOnCloudinary };
