@@ -7,8 +7,9 @@ import jwt from 'jsonwebtoken';
 /// verify whether the user is authenticated or not
 const verifyJWT = asyncHandler(async (req, res, next) => {
     try {
-        const accessToken = req.cookies?.accessToken || req.headers?.authorization?.replace("Bearer ", "");
-
+       const accessToken =
+    req.cookies?.accessToken ||
+    req.headers.authorization?.replace("Bearer ", "");
         if (!accessToken) {
             throw new ApiError(401, 'unauthorized access, please login');
         }
