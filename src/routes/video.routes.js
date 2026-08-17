@@ -5,11 +5,11 @@ import { publishVideo } from "../controllers/video.controller.js";
 import {getAllVideos,getVideoById,updateVideo,deleteVideo,togglePublishStatus}  from "../controllers/video.controller.js"
 const router = Router();
 
-router.use(verifyJWT);
+//router.use(verifyJWT);
 router
     .route("/")
     .get(getAllVideos)
-    .post(
+    .post(verifyJWT,
         upload.fields([
             {
                 name: "videoFile",
@@ -28,6 +28,7 @@ router
 router
     .route("/:videoId")
     .patch(
+        verifyJWT,
         upload.single("thumbnail"),
         updateVideo
     );
@@ -36,5 +37,5 @@ router
     .delete(deleteVideo);
 router
     .route("/toggle-publish/:videoId")
-    .patch(togglePublishStatus);
+    .patch(verifyJWT,togglePublishStatus);
 export default router;

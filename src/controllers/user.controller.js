@@ -5,6 +5,7 @@ import { uploadOnCloudinary } from '../utils/cloudinary.js';
 import ApiResponse from '../utils/ApiResponse.js';
 import jwt from 'jsonwebtoken';
 import { verifyJWT } from '../middlewares/auth.middleware.js';
+import { Subscription } from '../models/subscription.model.js';
 const generateAccessAndRefreshTokens = async(userId) => {
     const user = await User.findById(userId);
     const accessToken = user.generateAccessToken();
@@ -335,5 +336,50 @@ const updateUserCoverImage = asyncHandler(async (req, res) => {
             )
         );
 });
+const getUserChannelProfile = asyncHandler(async (req, res) => {
+    const { username } = req.params;
+
+    if (!username?.trim()) {
+        throw new ApiError(400, "Username is missing");
+    }
+
+    const channel = await User.findOne({
+        username: username.toLowerCase()
+    }).select("-password -refreshToken");
+
+    if (!channel) {
+        throw new ApiError(404, "Channel not found");
+    }
+
+    const subscriberCount = await Subscription.countDocuments({
+        channel: channel._id
+    });
+
+    const subscribedToCount = await Subscription.countDocuments({
+        subscriber: channel._id
+    });
+
+    const isSubscribed = await Subscription.findOne({
+        subscriber: req.user._id,
+        channel: channel._id
+    });
+
+    const data = {
+        ...channel.toObject(),
+        subscriberCount,
+        subscribedToCount,
+        isSubscribed: !!isSubscribed
+    };
+
+    return res
+        .status(200)
+        .json(
+            new ApiResponse(
+                200,
+                data,
+                "Channel profile fetched successfully"
+            )
+        );
+});
 export { registerUser, loginUser, logoutUser,refreshAccessToken,getCurrentUser,changeCurrentPassword ,updateAccountDetails,
-updateUserAvatar,updateUserCoverImage}; 
+updateUserAvatar,updateUserCoverImage,getUserChannelProfile}; 

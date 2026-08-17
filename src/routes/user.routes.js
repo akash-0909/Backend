@@ -10,7 +10,8 @@ import {
     changeCurrentPassword,
     updateAccountDetails,
     updateUserAvatar,
-    updateUserCoverImage
+    updateUserCoverImage,
+    getUserChannelProfile
 } from '../controllers/user.controller.js';
 const router = Router();
 
@@ -53,4 +54,7 @@ router.route('/cover-image').patch(
     upload.single('coverImage'),
     updateUserCoverImage
 );
+router
+    .route("/c/:username")
+    .get(verifyJWT, getUserChannelProfile);
 export default router;
