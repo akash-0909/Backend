@@ -174,7 +174,7 @@ const refreshAccessToken = asyncHandler(async (req, res) => {
             secure:true
         }
     
-        const {accessToken,newRefreshToken}=await generateAccessAndRefreshTokens(user._id);
+        const {accessToken,refreshToken:newRefreshToken}=await generateAccessAndRefreshTokens(user._id);
     
         return res
         .status(200)
@@ -335,5 +335,5 @@ const updateUserCoverImage = asyncHandler(async (req, res) => {
             )
         );
 });
-export { registerUser, loginUser, logoutUser,refreshAccessToken,etCurrentUser,changeCurrentPassword ,updateAccountDetails,
+export { registerUser, loginUser, logoutUser,refreshAccessToken,getCurrentUser,changeCurrentPassword ,updateAccountDetails,
 updateUserAvatar,updateUserCoverImage}; 
