@@ -1,17 +1,22 @@
+import { Link } from "react-router-dom";
+
 function VideoCard({ video }) {
     return (
-        <div>
-            <img
-                src={video.thumbnail}
-                alt={video.title}
-            />
+        <Link to={`/watch/${video._id}`}>
+            <div>
+                <img
+                    src={video.thumbnail}
+                    alt={video.title}
+                    width="300"
+                />
 
-            <h2>{video.title}</h2>
+                <h2>{video.title}</h2>
 
-            <p>{video.description}</p>
+                <p>{video.description}</p>
 
-            <p>{video.views} views</p>
-        </div>
+                <p>{video.views} views</p>
+            </div>
+        </Link>
     );
 }
 

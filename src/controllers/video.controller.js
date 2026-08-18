@@ -57,8 +57,8 @@ const publishVideo = asyncHandler(async (req, res) => {
         .json(
             new ApiResponse(
                 201,
-                video,
-                "Video published successfully"
+                "Video published successfully",
+                video
             )
         );
 });
@@ -94,8 +94,8 @@ const getAllVideos = asyncHandler(async (req, res) => {
         .json(
             new ApiResponse(
                 200,
-                data,
-                "Videos fetched successfully"
+                "Videos fetched successfully",
+                data
             )
         );
 });
@@ -126,8 +126,8 @@ const getVideoById = asyncHandler(async (req, res) => {
         .json(
             new ApiResponse(
                 200,
-                video,
-                "Video fetched successfully"
+                "Video fetched successfully",
+                video
             )
         );
 });
@@ -171,8 +171,8 @@ const updateVideo = asyncHandler(async (req, res) => {
         .json(
             new ApiResponse(
                 200,
-                video,
-                "Video updated successfully"
+                "Video updated successfully",
+                video
             )
         );
 });
@@ -205,8 +205,8 @@ const deleteVideo = asyncHandler(async (req, res) => {
         .json(
             new ApiResponse(
                 200,
-                {},
-                "Video deleted successfully"
+                "Video deleted successfully",
+                {}
             )
         );
 });
@@ -235,10 +235,10 @@ const togglePublishStatus = asyncHandler(async (req, res) => {
         .json(
             new ApiResponse(
                 200,
-                video,
                 video.isPublished
-                    ? "Video published successfully"
-                    : "Video unpublished successfully"
+                ? "Video published successfully"
+                : "Video unpublished successfully",
+                video
             )
         );
 });
