@@ -1,44 +1,68 @@
 <div align="center">
 
-# 🎬 Video Streaming Platform (Backend)
+# 🎬 Streamify — Video Platform Engine
+*A scalable, high-performance MERN backend built for modern media streaming.*
 
-A robust, scalable backend REST API for a YouTube-style video-sharing platform built with Node.js, Express.js, and MongoDB. Features secure JWT authentication, Cloudinary media management, and complex aggregation pipelines.
+![NodeJS](https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white)
+![ExpressJS](https://img.shields.io/badge/Express.js-000000?style=for-the-badge&logo=express&logoColor=white)
+![MongoDB](https://img.shields.io/badge/MongoDB-47A248?style=for-the-badge&logo=mongodb&logoColor=white)
+![JWT](https://img.shields.io/badge/JWT-000000?style=for-the-badge&logo=JSON%20web%20tokens&logoColor=white)
+![Cloudinary](https://img.shields.io/badge/Cloudinary-3448C5?style=for-the-badge&logo=cloudinary&logoColor=white)
 
-[Report Bug](https://github.com/akash0909/Backend/issues) · [Request Feature](https://github.com/akash0909/Backend/issues)
+[Report Issue](https://github.com/akash-0909/Backend/issues) · [Request Feature](https://github.com/akash-0909/Backend/issues)
 
 </div>
 
 ---
 
-## 🚀 Overview
+## 💡 The Problem & Solution
 
-This repository houses the core server-side architecture for a full-featured video platform. It handles full user authentication, high-performance media uploads, optimized database queries for playlists and subscriptions, and comprehensive interaction tracking (likes, comments, and watch history).
+Building a video platform requires more than basic CRUD operations. Handling video file storage, secure stream delivery, subscriber relationships, and real-time interaction feeds (likes, comments, history) demands a robust database design and efficient query architecture.
+
+**Streamify Backend** solves this by leveraging **MongoDB Aggregation Pipelines** to deliver high-speed, paginated user feeds alongside a dual-token JWT authentication system for maximum security.
+
+---
+
+## 🔥 Key Engineering Highlights
+
+* 🔐 **Production-Grade Auth:** Implemented access & refresh token rotation using JWT with HTTP-only cookies and `bcrypt` password hashing.
+* ⚡ **Optimized Queries:** Replaced expensive multi-query operations with complex MongoDB aggregation pipelines for watch history, channel analytics, and subscriber feeds.
+* ☁️ **Cloud Storage Integration:** Built a multi-part file handling pipeline using **Multer** and **Cloudinary** for video processing and dynamic thumbnail management.
+* 🛡️ **Robust REST Architecture:** Standardized API responses, custom middleware for auth verification, and centralized error handling across all controllers.
+
+---
+
+## ⚡ System Architecture & Features
+
+| Feature | Description | Tech Used |
+| :--- | :--- | :--- |
+| **Authentication** | Access/Refresh Token cycle, session revocation | JWT, Bcrypt |
+| **Media Pipeline** | Asynchronous cloud uploads for video & thumbnails | Multer, Cloudinary |
+| **Social Graph** | Subscriptions, channel stats, like/dislike counts | Aggregation Pipelines |
+| **Content Operations** | Playlists, nested comment trees, persistent watch history | MongoDB, Mongoose |
+
+---
 
 ## 🛠️ Tech Stack
 
 * **Runtime:** Node.js
 * **Framework:** Express.js
-* **Database:** MongoDB & Mongoose
-* **Authentication:** JWT (JSON Web Tokens), `bcrypt`
-* **File Handling & Cloud Storage:** Multer, Cloudinary
+* **Database:** MongoDB (with Mongoose ODM)
+* **Auth & Security:** JSON Web Tokens (JWT), Bcrypt
+* **Storage Engine:** Cloudinary API, Multer
 
-## ✨ Key Features
+---
 
-* **Secure Authentication:** User sign-up, sign-in, session handling via JWT, and encrypted password storage.
-* **Media Management:** Direct image and video uploads powered by Multer and integrated with Cloudinary cloud storage.
-* **Optimized Database Queries:** Advanced MongoDB aggregation pipelines for efficient video pagination, search indexing, and feed generation.
-* **Core Platform APIs:** Full RESTful routes for user profiles, video likes, nested comments, custom playlists, subscriptions, and watch history tracking.
-
-## ⚙️ Quick Start
+## 🚦 Quick Start Guide
 
 ### Prerequisites
-* [Node.js](https://nodejs.org/) (v16 or higher)
-* [MongoDB](https://www.mongodb.com/) (Local or Atlas instance)
-* [Cloudinary](https://cloudinary.com/) Account (for API keys)
+* Node.js (v18+)
+* MongoDB Atlas connection string
+* Cloudinary API Keys
 
 ### Installation
 
-1. **Clone the repository:**
+1. **Clone the repository**
    ```bash
-   git clone [https://github.com/akash0909/Backend.git](https://github.com/akash0909/Backend.git)
+   git clone [https://github.com/akash-0909/Backend.git](https://github.com/akash-0909/Backend.git)
    cd Backend
