@@ -3,11 +3,12 @@ import { useParams } from "react-router-dom";
 import api from "../api/axios";
 import VideoCard from "../components/VideoCard";
 import { useAuth } from "../context/AuthContext";
-
+import { useNavigate } from "react-router-dom";
 function Channel() {
 
     const { username } = useParams();
     const { user } = useAuth();
+    const navigate = useNavigate();
 
     const [channel, setChannel] = useState(null);
     const [videos, setVideos] = useState([]);
@@ -20,17 +21,28 @@ function Channel() {
             try {
 
                 setLoading(true);
-
                 const response = await api.get(
                     `/users/c/${username}`
                 );
 
-                console.log(
-                    "CHANNEL:",
-                    response.data
-                );
+                const channelData = response.data.data;
 
-                setChannel(response.data.data);
+                // console.log("CHANNEL DATA:", channelData);
+
+                setChannel(channelData);
+
+                // console.log("CHANNEL ID:", channelData._id);
+
+                const videosUrl = `/videos/channel/${channelData._id}`;
+
+                // console.log("VIDEOS URL:", videosUrl);
+
+                const videosResponse = await api.get(videosUrl);
+
+                // console.log("VIDEOS RESPONSE:", videosResponse.data);
+
+                setVideos(videosResponse.data.data);
+                // setChannel(channelData);
 
             } catch (error) {
 
@@ -72,7 +84,29 @@ function Channel() {
     const isOwnChannel =
         user?._id === channel._id;
 
+    const handleSubscribe = async () => {
+        try {
+            const response = await api.post(
+                `/subscriptions/c/${channel._id}`
+            );
 
+            console.log("SUBSCRIPTION:", response.data);
+
+            const wasSubscribed = channel.isSubscribed;
+
+            setChannel((prev) => ({
+                ...prev,
+                isSubscribed: !wasSubscribed,
+                subscriberCount:
+                    wasSubscribed
+                        ? prev.subscriberCount - 1
+                        : prev.subscriberCount + 1
+            }));
+
+        } catch (error) {
+            console.log("SUBSCRIBE ERROR:", error);
+        }
+    };
     return (
         <main className="channel-page">
 
@@ -135,18 +169,21 @@ function Channel() {
 
                     {isOwnChannel ? (
 
-                        <button className="channel-own-button">
-                            Your Channel
+                        <button
+                            className="channel-own-button"
+                            onClick={() => navigate("/edit-channel")}
+                        >
+                            ✏️ Edit Channel
                         </button>
 
                     ) : (
 
                         <button
-                            className={`channel-subscribe ${
-                                channel.isSubscribed
-                                    ? "subscribed"
-                                    : ""
-                            }`}
+                            onClick={handleSubscribe}
+                            className={`channel-subscribe ${channel.isSubscribed
+                                ? "subscribed"
+                                : ""
+                                }`}
                         >
                             {channel.isSubscribed
                                 ? "✓ Subscribed"

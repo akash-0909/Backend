@@ -2,7 +2,7 @@ import { Router } from "express";
 import { verifyJWT } from "../middlewares/auth.middleware.js";
 import  upload  from "../middlewares/multer.middleware.js";
 import { publishVideo } from "../controllers/video.controller.js";
-import {getAllVideos,getVideoById,updateVideo,deleteVideo,togglePublishStatus}  from "../controllers/video.controller.js"
+import {getAllVideos,getVideoById,updateVideo,deleteVideo,getChannelVideos,togglePublishStatus}  from "../controllers/video.controller.js"
 const router = Router();
 
 //router.use(verifyJWT);
@@ -22,6 +22,9 @@ router
         ]),
         publishVideo
     );
+router
+    .route("/channel/:channelId")
+    .get(getChannelVideos);
 router
     .route("/:videoId")
     .get(getVideoById)

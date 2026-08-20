@@ -236,4 +236,35 @@ const togglePublishStatus = asyncHandler(async (req, res) => {
             )
         );
 });
-export { publishVideo, getAllVideos, getVideoById, updateVideo, deleteVideo, togglePublishStatus };
+const getChannelVideos = asyncHandler(async (req, res) => {
+    try {
+        const { channelId } = req.params;
+
+        console.log("========== CHANNEL VIDEOS ==========");
+        console.log("CHANNEL ID:", channelId);
+
+        const videos = await Video.find({
+            owner: channelId,
+            isPublished: true
+        });
+
+        console.log("VIDEOS FOUND:", videos.length);
+
+        return res
+            .status(200)
+            .json(
+                new ApiResponse(
+                    200,
+                    "Channel videos fetched successfully",
+                    videos
+                )
+            );
+
+    } catch (error) {
+        console.log("========== CHANNEL VIDEOS ERROR ==========");
+        console.log(error);
+
+        throw error;
+    }
+});
+export { publishVideo, getAllVideos, getVideoById, updateVideo, deleteVideo, togglePublishStatus,getChannelVideos };

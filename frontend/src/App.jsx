@@ -7,6 +7,8 @@ import Video from "./pages/Video";
 import Upload from "./pages/Upload"
 import ProtectedRoute from "./components/ProtectedRoute";
 import Navbar from "./components/Navbar";
+import Channel from "./pages/Channel";
+import EditChannel from "./pages/EditChannel";
 function App() {
     return (
         <BrowserRouter>
@@ -24,6 +26,14 @@ function App() {
                             <Upload />
                         </ProtectedRoute>
                     }
+                />
+                <Route
+                    path="/c/:username"
+                    element={<Channel />}
+                />
+                <Route
+                    path="/edit-channel"
+                    element={<EditChannel />}
                 />
             </Routes>
         </BrowserRouter>
