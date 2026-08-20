@@ -1,7 +1,7 @@
 import asyncHandler from "express-async-handler";
-import  ApiError  from "../utils/ApiError.js";
-import  ApiResponse  from "../utils/ApiResponse.js";
-import { uploadOnCloudinary } from "../utils/cloudinary.js";
+import ApiError from "../utils/ApiError.js";
+import ApiResponse from "../utils/ApiResponse.js";
+import { uploadOnCloudinary, deleteFromCloudinary } from "../utils/cloudinary.js";
 import { Video } from "../models/video.model.js";
 
 const publishVideo = asyncHandler(async (req, res) => {
@@ -36,15 +36,15 @@ const publishVideo = asyncHandler(async (req, res) => {
 
     const video = await Video.create({
         videoFile: videoFile.url,
-    videoPublicId: videoFile.public_id,
+        videoPublicId: videoFile.public_id,
 
-    thumbnail: thumbnail.url,
-    thumbnailPublicId: thumbnail.public_id,
+        thumbnail: thumbnail.url,
+        thumbnailPublicId: thumbnail.public_id,
         title,
         description,
         duration: videoFile.duration,
-        views:0,
-        isPublished:true,
+        views: 0,
+        isPublished: true,
         owner: req.user._id
     });
 
@@ -105,19 +105,13 @@ const getVideoById = asyncHandler(async (req, res) => {
     if (!videoId) {
         throw new ApiError(400, "Video ID is required");
     }
-    const videoo = await Video.findByIdAndUpdate(
+    const video = await Video.findByIdAndUpdate(
         videoId,
-        {
-            $inc: {
-                views: 1
-            }
-        },
+        { $inc: { views: 1 } },
         { new: true }
-    );
-    const video = await Video.findById(videoId)
-        .populate("owner", "username fullName avatar");
+    ).populate("owner", "username fullName avatar");
 
-    if (!videoo) {
+    if (!video) {
         throw new ApiError(404, "Video not found");
     }
 
@@ -182,21 +176,21 @@ const deleteVideo = asyncHandler(async (req, res) => {
     if (!videoId) {
         throw new ApiError(400, "Video ID is required");
     }
-    await deleteFromCloudinary(video.videoPublicId, "video");
-
-    await deleteFromCloudinary(video.thumbnailPublicId, "image");
     const video = await Video.findById(videoId);
-
     if (!video) {
         throw new ApiError(404, "Video not found");
     }
-
     if (video.owner.toString() !== req.user._id.toString()) {
         throw new ApiError(
             403,
             "You are not allowed to delete this video"
         );
     }
+    await deleteFromCloudinary(video.videoPublicId, "video");
+
+    await deleteFromCloudinary(video.thumbnailPublicId, "image");
+
+
 
     await Video.findByIdAndDelete(videoId);
 
@@ -236,10 +230,10 @@ const togglePublishStatus = asyncHandler(async (req, res) => {
             new ApiResponse(
                 200,
                 video.isPublished
-                ? "Video published successfully"
-                : "Video unpublished successfully",
+                    ? "Video published successfully"
+                    : "Video unpublished successfully",
                 video
             )
         );
 });
-export { publishVideo,getAllVideos,getVideoById,updateVideo,deleteVideo,togglePublishStatus };
+export { publishVideo, getAllVideos, getVideoById, updateVideo, deleteVideo, togglePublishStatus };

@@ -57,4 +57,4 @@ router.route('/cover-image').patch(
 router
     .route("/c/:username")
     .get(verifyJWT, getUserChannelProfile);
-export default router;
+export default router; 

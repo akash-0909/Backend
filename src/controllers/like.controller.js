@@ -1,11 +1,17 @@
 import asyncHandler from "express-async-handler";
 import { Like } from "../models/like.model.js";
 import { Video } from "../models/video.model.js";
-import  ApiError  from "../utils/ApiError.js";
-import  ApiResponse  from "../utils/ApiResponse.js";
 import { Comment } from "../models/comment.model.js";
+import ApiError from "../utils/ApiError.js";
+import ApiResponse from "../utils/ApiResponse.js";
+
+
+// ==========================================
+// TOGGLE VIDEO LIKE
+// ==========================================
 
 const toggleVideoLike = asyncHandler(async (req, res) => {
+
     const { videoId } = req.params;
 
     const video = await Video.findById(videoId);
@@ -19,7 +25,9 @@ const toggleVideoLike = asyncHandler(async (req, res) => {
         likedBy: req.user._id
     });
 
+    // UNLIKE
     if (existingLike) {
+
         await Like.findByIdAndDelete(existingLike._id);
 
         return res
@@ -27,12 +35,13 @@ const toggleVideoLike = asyncHandler(async (req, res) => {
             .json(
                 new ApiResponse(
                     200,
-                    {},
-                    "Video unliked successfully"
+                    "Video unliked successfully",
+                    {}
                 )
             );
     }
 
+    // LIKE
     const like = await Like.create({
         video: videoId,
         likedBy: req.user._id
@@ -43,12 +52,19 @@ const toggleVideoLike = asyncHandler(async (req, res) => {
         .json(
             new ApiResponse(
                 201,
-                like,
-                "Video liked successfully"
+                "Video liked successfully",
+                like
             )
         );
 });
+
+
+// ==========================================
+// TOGGLE COMMENT LIKE
+// ==========================================
+
 const toggleCommentLike = asyncHandler(async (req, res) => {
+
     const { commentId } = req.params;
 
     const comment = await Comment.findById(commentId);
@@ -62,7 +78,9 @@ const toggleCommentLike = asyncHandler(async (req, res) => {
         likedBy: req.user._id
     });
 
+    // UNLIKE COMMENT
     if (existingLike) {
+
         await Like.findByIdAndDelete(existingLike._id);
 
         return res
@@ -70,12 +88,13 @@ const toggleCommentLike = asyncHandler(async (req, res) => {
             .json(
                 new ApiResponse(
                     200,
-                    {},
-                    "Comment unliked successfully"
+                    "Comment unliked successfully",
+                    {}
                 )
             );
     }
 
+    // LIKE COMMENT
     const like = await Like.create({
         comment: commentId,
         likedBy: req.user._id
@@ -86,12 +105,19 @@ const toggleCommentLike = asyncHandler(async (req, res) => {
         .json(
             new ApiResponse(
                 201,
-                like,
-                "Comment liked successfully"
+                "Comment liked successfully",
+                like
             )
         );
 });
+
+
+// ==========================================
+// GET VIDEO LIKE COUNT
+// ==========================================
+
 const getVideoLikeCount = asyncHandler(async (req, res) => {
+
     const { videoId } = req.params;
 
     const video = await Video.findById(videoId);
@@ -109,12 +135,21 @@ const getVideoLikeCount = asyncHandler(async (req, res) => {
         .json(
             new ApiResponse(
                 200,
-                { likeCount },
-                "Video like count fetched successfully"
+                "Video like count fetched successfully",
+                {
+                    likeCount
+                }
             )
         );
 });
+
+
+// ==========================================
+// GET COMMENT LIKE COUNT
+// ==========================================
+
 const getCommentLikeCount = asyncHandler(async (req, res) => {
+
     const { commentId } = req.params;
 
     const comment = await Comment.findById(commentId);
@@ -132,12 +167,21 @@ const getCommentLikeCount = asyncHandler(async (req, res) => {
         .json(
             new ApiResponse(
                 200,
-                { likeCount },
-                "Comment like count fetched successfully"
+                "Comment like count fetched successfully",
+                {
+                    likeCount
+                }
             )
         );
 });
+
+
+// ==========================================
+// CHECK VIDEO LIKE STATUS
+// ==========================================
+
 const isVideoLiked = asyncHandler(async (req, res) => {
+
     const { videoId } = req.params;
 
     const like = await Like.findOne({
@@ -150,12 +194,21 @@ const isVideoLiked = asyncHandler(async (req, res) => {
         .json(
             new ApiResponse(
                 200,
-                { isLiked: !!like },
-                "Video like status fetched successfully"
+                "Video like status fetched successfully",
+                {
+                    isLiked: !!like
+                }
             )
         );
 });
+
+
+// ==========================================
+// CHECK COMMENT LIKE STATUS
+// ==========================================
+
 const isCommentLiked = asyncHandler(async (req, res) => {
+
     const { commentId } = req.params;
 
     const like = await Like.findOne({
@@ -168,9 +221,20 @@ const isCommentLiked = asyncHandler(async (req, res) => {
         .json(
             new ApiResponse(
                 200,
-                { isLiked: !!like },
-                "Comment like status fetched successfully"
+                "Comment like status fetched successfully",
+                {
+                    isLiked: !!like
+                }
             )
         );
 });
-export { toggleVideoLike,toggleCommentLike,getVideoLikeCount,getCommentLikeCount,isVideoLiked,isCommentLiked};
+
+
+export {
+    toggleVideoLike,
+    toggleCommentLike,
+    getVideoLikeCount,
+    getCommentLikeCount,
+    isVideoLiked,
+    isCommentLiked
+};

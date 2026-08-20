@@ -1,111 +1,2722 @@
+/* =====================================================
+   MYTUBE — GLOBAL BLUE THEME
+   ===================================================== */
+
 :root {
-  --text: #6b6375;
-  --text-h: #08060d;
-  --bg: #fff;
-  --border: #e5e4e7;
-  --code-bg: #f4f3ec;
-  --accent: #aa3bff;
-  --accent-bg: rgba(170, 59, 255, 0.1);
-  --accent-border: rgba(170, 59, 255, 0.5);
-  --social-bg: rgba(244, 243, 236, 0.5);
-  --shadow:
-    rgba(0, 0, 0, 0.1) 0 10px 15px -3px, rgba(0, 0, 0, 0.05) 0 4px 6px -2px;
+    --primary: #2563eb;
+    --primary-hover: #1d4ed8;
+    --primary-light: #3b82f6;
 
-  --sans: system-ui, 'Segoe UI', Roboto, sans-serif;
-  --heading: system-ui, 'Segoe UI', Roboto, sans-serif;
-  --mono: ui-monospace, Consolas, monospace;
+    --background: #0b0b0b;
+    --card: #181818;
+    --input: #101010;
 
-  font: 18px/145% var(--sans);
-  letter-spacing: 0.18px;
-  color-scheme: light dark;
-  color: var(--text);
-  background: var(--bg);
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+    --border: #333333;
 
-  @media (max-width: 1024px) {
-    font-size: 16px;
-  }
+    --text: #ffffff;
+    --text-secondary: #999999;
+    --text-muted: #777777;
+
+    --error: #ef4444;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --text: #9ca3af;
-    --text-h: #f3f4f6;
-    --bg: #16171d;
-    --border: #2e303a;
-    --code-bg: #1f2028;
-    --accent: #c084fc;
-    --accent-bg: rgba(192, 132, 252, 0.15);
-    --accent-border: rgba(192, 132, 252, 0.5);
-    --social-bg: rgba(47, 48, 58, 0.5);
-    --shadow:
-      rgba(0, 0, 0, 0.4) 0 10px 15px -3px, rgba(0, 0, 0, 0.25) 0 4px 6px -2px;
-  }
 
-  #social .button-icon {
-    filter: invert(1) brightness(2);
-  }
+/* =====================================================
+   GLOBAL RESET
+   ===================================================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
 }
 
 body {
-  margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background: var(--background);
+    color: var(--text);
 }
 
-#root {
-  width: 1126px;
-  max-width: 100%;
-  margin: 0 auto;
-  text-align: center;
-  border-inline: 1px solid var(--border);
-  min-height: 100svh;
-  display: flex;
-  flex-direction: column;
-  box-sizing: border-box;
+
+/* =====================================================
+   LOGIN / REGISTER PAGE
+   ===================================================== */
+
+.auth-page {
+    min-height: 100vh;
+    width: 100%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 30px;
+
+    background:
+        radial-gradient(
+            circle at 20% 20%,
+            rgba(37, 99, 235, 0.12),
+            transparent 30%
+        ),
+        radial-gradient(
+            circle at 80% 80%,
+            rgba(37, 99, 235, 0.08),
+            transparent 30%
+        ),
+        var(--background);
 }
 
-h1,
-h2 {
-  font-family: var(--heading);
-  font-weight: 500;
-  color: var(--text-h);
+
+/* =====================================================
+   AUTH CARD
+   ===================================================== */
+
+.auth-card {
+    width: 100%;
+    max-width: 430px;
+
+    padding: 42px;
+
+    background: rgba(24, 24, 24, 0.94);
+
+    border: 1px solid #2d2d2d;
+    border-radius: 20px;
+
+    box-shadow:
+        0 20px 60px rgba(0, 0, 0, 0.6),
+        0 0 40px rgba(37, 99, 235, 0.06);
+
+    backdrop-filter: blur(12px);
 }
 
-h1 {
-  font-size: 56px;
-  letter-spacing: -1.68px;
-  margin: 32px 0;
-  @media (max-width: 1024px) {
-    font-size: 36px;
-    margin: 20px 0;
-  }
+.register-card {
+    max-width: 480px;
 }
-h2 {
-  font-size: 24px;
-  line-height: 118%;
-  letter-spacing: -0.24px;
-  margin: 0 0 8px;
-  @media (max-width: 1024px) {
+
+
+/* =====================================================
+   MYTUBE LOGO
+   ===================================================== */
+
+.auth-logo {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+
+    color: var(--primary);
+
+    font-size: 30px;
+    font-weight: 800;
+
+    margin-bottom: 32px;
+}
+
+.auth-logo::before {
+    content: "▶";
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 36px;
+    height: 26px;
+
+    background: var(--primary);
+    color: white;
+
+    font-size: 13px;
+
+    border-radius: 7px;
+
+    box-shadow:
+        0 5px 18px rgba(37, 99, 235, 0.3);
+}
+
+
+/* =====================================================
+   HEADINGS
+   ===================================================== */
+
+.auth-card h1 {
+    color: var(--text);
+
+    font-size: 30px;
+    font-weight: 700;
+
+    margin-bottom: 10px;
+}
+
+.auth-subtitle {
+    color: var(--text-secondary);
+
+    font-size: 15px;
+    line-height: 1.6;
+
+    margin-bottom: 28px;
+}
+
+
+/* =====================================================
+   FORM
+   ===================================================== */
+
+.auth-card form {
+    display: flex;
+    flex-direction: column;
+
+    gap: 16px;
+}
+
+
+/* =====================================================
+   INPUTS
+   ===================================================== */
+
+.auth-card input {
+    width: 100%;
+
+    padding: 15px 16px;
+
+    background: var(--input);
+    color: var(--text);
+
+    border: 1px solid var(--border);
+    border-radius: 10px;
+
+    font-size: 15px;
+
+    outline: none;
+
+    transition: all 0.25s ease;
+}
+
+.auth-card input::placeholder {
+    color: var(--text-muted);
+}
+
+.auth-card input:hover {
+    border-color: #444;
+}
+
+.auth-card input:focus {
+    border-color: var(--primary);
+
+    box-shadow:
+        0 0 0 3px rgba(37, 99, 235, 0.15);
+}
+
+
+/* =====================================================
+   PASSWORD FIELD
+   ===================================================== */
+
+.password-wrapper {
+    position: relative;
+
+    width: 100%;
+}
+
+.password-wrapper input {
+    padding-right: 70px;
+}
+
+
+/* SHOW / HIDE BUTTON */
+
+.password-toggle {
+    position: absolute !important;
+
+    right: 10px;
+    top: 50%;
+
+    transform: translateY(-50%) !important;
+
+    width: auto !important;
+
+    margin: 0 !important;
+
+    padding: 5px 8px !important;
+
+    background: transparent !important;
+
+    color: var(--text-secondary) !important;
+
+    border: none !important;
+
+    font-size: 13px !important;
+    font-weight: 600 !important;
+
+    box-shadow: none !important;
+
+    cursor: pointer;
+
+    transition: color 0.2s ease;
+}
+
+.password-toggle:hover {
+    color: var(--primary-light) !important;
+
+    background: transparent !important;
+
+    transform: translateY(-50%) !important;
+
+    box-shadow: none !important;
+}
+
+
+/* =====================================================
+   MAIN BUTTON
+   ===================================================== */
+
+.auth-card button[type="submit"] {
+    width: 100%;
+
+    padding: 15px;
+
+    margin-top: 5px;
+
+    border: none;
+    border-radius: 10px;
+
+    background: var(--primary);
+    color: white;
+
+    font-size: 16px;
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition: all 0.25s ease;
+}
+
+.auth-card button[type="submit"]:hover {
+    background: var(--primary-hover);
+
+    transform: translateY(-1px);
+
+    box-shadow:
+        0 8px 25px rgba(37, 99, 235, 0.3);
+}
+
+.auth-card button[type="submit"]:active {
+    transform: translateY(0);
+}
+
+.auth-card button[type="submit"]:disabled {
+    opacity: 0.6;
+
+    cursor: not-allowed;
+
+    transform: none;
+
+    box-shadow: none;
+}
+
+
+/* =====================================================
+   ERROR MESSAGE
+   ===================================================== */
+
+.auth-error {
+    padding: 11px 13px;
+
+    background: rgba(239, 68, 68, 0.08);
+
+    border: 1px solid rgba(239, 68, 68, 0.25);
+
+    border-radius: 8px;
+
+    color: #f87171;
+
+    font-size: 14px;
+}
+
+
+/* =====================================================
+   LOGIN / REGISTER SWITCH
+   ===================================================== */
+
+.auth-switch {
+    margin-top: 25px;
+
+    text-align: center;
+
+    color: var(--text-secondary);
+
+    font-size: 14px;
+}
+
+.auth-switch a {
+    color: var(--primary-light);
+
+    font-weight: 600;
+
+    text-decoration: none;
+
+    transition: color 0.2s ease;
+}
+
+.auth-switch a:hover {
+    color: #93c5fd;
+
+    text-decoration: underline;
+}
+
+
+/* =====================================================
+   FILE UPLOAD SECTION
+   ===================================================== */
+
+.file-section {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 8px;
+}
+
+.file-section label {
+    color: #bbb;
+
+    font-size: 13px;
+
+    font-weight: 600;
+}
+
+.file-section input[type="file"] {
+    padding: 10px;
+
+    background: var(--input);
+
+    border: 1px solid var(--border);
+
+    border-radius: 10px;
+
+    color: var(--text-secondary);
+
+    cursor: pointer;
+}
+
+.file-section input[type="file"]:hover {
+    border-color: #444;
+}
+
+.file-section input[type="file"]::file-selector-button {
+    border: none;
+
+    padding: 8px 12px;
+
+    margin-right: 10px;
+
+    border-radius: 6px;
+
+    background: #292929;
+
+    color: white;
+
+    cursor: pointer;
+
+    transition: background 0.2s ease;
+}
+
+.file-section input[type="file"]::file-selector-button:hover {
+    background: var(--primary);
+}
+
+
+/* =====================================================
+   MOBILE
+   ===================================================== */
+
+@media (max-width: 500px) {
+
+    .auth-page {
+        padding: 18px;
+    }
+
+    .auth-card {
+        padding: 30px 22px;
+
+        border-radius: 16px;
+    }
+
+    .auth-card h1 {
+        font-size: 25px;
+    }
+
+    .auth-logo {
+        font-size: 26px;
+    }
+
+    .auth-logo::before {
+        width: 32px;
+        height: 24px;
+    }
+}
+/* =====================================================
+   MYTUBE NAVBAR
+   ===================================================== */
+
+.navbar {
+    height: 70px;
+
+    width: 100%;
+
+    display: flex;
+    align-items: center;
+
+    padding: 0 32px;
+
+    background: rgba(15, 15, 15, 0.95);
+
+    border-bottom: 1px solid #262626;
+
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+
+    backdrop-filter: blur(12px);
+}
+
+
+/* =====================================================
+   LOGO
+   ===================================================== */
+
+.navbar-logo {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+
+    color: var(--primary);
+
+    font-size: 24px;
+    font-weight: 800;
+
+    cursor: pointer;
+
+    user-select: none;
+}
+
+.navbar-logo-icon {
+    width: 31px;
+    height: 23px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: var(--primary);
+
+    color: white;
+
+    font-size: 11px;
+
+    border-radius: 6px;
+
+    box-shadow:
+        0 4px 15px rgba(37, 99, 235, 0.3);
+
+    transition: 0.2s;
+}
+
+.navbar-logo:hover .navbar-logo-icon {
+    background: var(--primary-hover);
+
+    transform: scale(1.05);
+}
+
+
+/* =====================================================
+   CENTER NAVIGATION
+   ===================================================== */
+
+.navbar-links {
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    margin-left: 45px;
+}
+
+.nav-link {
+    background: transparent;
+
+    border: none;
+
+    color: #bbb;
+
+    font-size: 15px;
+
+    font-weight: 600;
+
+    padding: 9px 14px;
+
+    border-radius: 8px;
+
+    cursor: pointer;
+
+    transition: 0.2s;
+}
+
+.nav-link:hover {
+    color: white;
+
+    background: #202020;
+}
+
+
+/* =====================================================
+   UPLOAD BUTTON
+   ===================================================== */
+
+.upload-nav-btn {
+    background: var(--primary);
+
+    border: none;
+
+    color: white;
+
+    padding: 9px 16px;
+
+    border-radius: 8px;
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: all 0.2s ease;
+}
+
+.upload-nav-btn:hover {
+    background: var(--primary-hover);
+
+    transform: translateY(-1px);
+
+    box-shadow:
+        0 5px 18px rgba(37, 99, 235, 0.25);
+}
+
+
+/* =====================================================
+   RIGHT SIDE
+   ===================================================== */
+
+.navbar-right {
+    margin-left: auto;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 14px;
+}
+
+
+/* =====================================================
+   USER
+   ===================================================== */
+
+.navbar-user {
+    display: flex;
+
+    align-items: center;
+
+    gap: 9px;
+
+    padding: 5px 9px;
+
+    border-radius: 9px;
+
+    cursor: pointer;
+
+    transition: 0.2s;
+}
+
+.navbar-user:hover {
+    background: #202020;
+}
+
+.navbar-avatar {
+    width: 38px;
+    height: 38px;
+
+    border-radius: 50%;
+
+    object-fit: cover;
+
+    border: 2px solid var(--primary);
+}
+
+.navbar-username {
+    color: #ddd;
+
+    font-size: 14px;
+
+    font-weight: 600;
+}
+
+
+/* =====================================================
+   LOGOUT
+   ===================================================== */
+
+.logout-btn {
+    padding: 9px 15px;
+
+    background: transparent;
+
+    color: #aaa;
+
+    border: 1px solid #333;
+
+    border-radius: 8px;
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: 0.2s;
+}
+
+.logout-btn:hover {
+    color: white;
+
+    border-color: #555;
+
+    background: #222;
+}
+
+
+/* =====================================================
+   LOGIN
+   ===================================================== */
+
+.nav-login-btn {
+    padding: 9px 17px;
+
+    background: transparent;
+
+    color: #ddd;
+
+    border: 1px solid #444;
+
+    border-radius: 8px;
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: 0.2s;
+}
+
+.nav-login-btn:hover {
+    border-color: var(--primary);
+
+    color: var(--primary-light);
+}
+
+
+/* =====================================================
+   REGISTER
+   ===================================================== */
+
+.nav-register-btn {
+    padding: 9px 17px;
+
+    background: var(--primary);
+
+    color: white;
+
+    border: none;
+
+    border-radius: 8px;
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: 0.2s;
+}
+
+.nav-register-btn:hover {
+    background: var(--primary-hover);
+
+    transform: translateY(-1px);
+}
+
+
+/* =====================================================
+   MOBILE NAVBAR
+   ===================================================== */
+
+@media (max-width: 700px) {
+
+    .navbar {
+        padding: 0 16px;
+
+        height: 62px;
+    }
+
+    .navbar-logo {
+        font-size: 21px;
+    }
+
+    .navbar-links {
+        margin-left: 15px;
+    }
+
+    .nav-link {
+        display: none;
+    }
+
+    .navbar-username {
+        display: none;
+    }
+
+    .upload-nav-btn {
+        padding: 8px 12px;
+    }
+
+    .logout-btn {
+        padding: 8px 11px;
+    }
+
+    .nav-login-btn,
+    .nav-register-btn {
+        padding: 8px 11px;
+    }
+}
+/* =====================================================
+   MYTUBE UPLOAD PAGE
+   ===================================================== */
+
+.upload-page {
+    min-height: calc(100vh - 70px);
+
+    padding: 45px 25px;
+
+    background:
+        radial-gradient(
+            circle at 10% 10%,
+            rgba(37, 99, 235, 0.08),
+            transparent 25%
+        ),
+        #0b0b0b;
+}
+
+.upload-container {
+    width: 100%;
+    max-width: 900px;
+
+    margin: 0 auto;
+}
+
+
+/* ================= HEADER ================= */
+
+.upload-header {
+    display: flex;
+    align-items: center;
+
+    gap: 18px;
+
+    margin-bottom: 35px;
+}
+
+.upload-header h1 {
+    font-size: 32px;
+
+    color: white;
+
+    margin-bottom: 7px;
+}
+
+.upload-header p {
+    color: #888;
+
+    font-size: 14px;
+}
+
+.back-button {
+    width: 42px;
+    height: 42px;
+
+    border-radius: 10px;
+
+    border: 1px solid #333;
+
+    background: #181818;
+
+    color: white;
+
+    font-size: 22px;
+
+    cursor: pointer;
+
+    transition: 0.2s;
+}
+
+.back-button:hover {
+    background: #242424;
+
+    border-color: #444;
+}
+
+
+/* ================= FORM ================= */
+
+.upload-form {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 24px;
+}
+
+.upload-section {
+    background: #151515;
+
+    border: 1px solid #292929;
+
+    border-radius: 16px;
+
+    padding: 28px;
+}
+
+.upload-section h2 {
+    color: white;
+
+    font-size: 19px;
+
+    margin-bottom: 20px;
+}
+
+
+/* ================= VIDEO DROPZONE ================= */
+
+.upload-dropzone,
+.thumbnail-dropzone {
+    min-height: 260px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    justify-content: center;
+
+    text-align: center;
+
+    padding: 25px;
+
+    border: 2px dashed #333;
+
+    border-radius: 14px;
+
+    background: #101010;
+
+    cursor: pointer;
+
+    transition: all 0.25s ease;
+
+    overflow: hidden;
+}
+
+.upload-dropzone:hover,
+.thumbnail-dropzone:hover {
+    border-color: var(--primary);
+
+    background: rgba(37, 99, 235, 0.04);
+}
+
+.upload-dropzone.has-file,
+.thumbnail-dropzone.has-file {
+    border-style: solid;
+
+    border-color: #333;
+
+    padding: 10px;
+}
+
+
+/* ================= UPLOAD ICON ================= */
+
+.upload-icon {
+    width: 58px;
+    height: 58px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    margin-bottom: 15px;
+
+    border-radius: 50%;
+
+    background: rgba(37, 99, 235, 0.12);
+
+    color: var(--primary-light);
+
+    font-size: 25px;
+}
+
+.upload-dropzone h3,
+.thumbnail-dropzone h3 {
+    color: #eee;
+
+    font-size: 17px;
+
+    margin-bottom: 7px;
+}
+
+.upload-dropzone p,
+.thumbnail-dropzone p {
+    color: #777;
+
+    font-size: 13px;
+
+    margin-bottom: 18px;
+}
+
+
+/* ================= BROWSE BUTTON ================= */
+
+.browse-button {
+    padding: 9px 16px;
+
+    background: #222;
+
+    border: 1px solid #3a3a3a;
+
+    border-radius: 7px;
+
+    color: #ddd;
+
+    font-size: 13px;
+
+    font-weight: 600;
+}
+
+
+/* Hide actual input */
+
+.upload-dropzone input,
+.thumbnail-dropzone input {
+    display: none;
+}
+
+
+/* ================= VIDEO PREVIEW ================= */
+
+.video-preview {
+    width: 100%;
+
+    max-height: 420px;
+
+    border-radius: 10px;
+
+    object-fit: contain;
+
+    background: black;
+}
+
+
+/* ================= THUMBNAIL ================= */
+
+.thumbnail-preview {
+    width: 100%;
+
+    max-height: 400px;
+
+    object-fit: contain;
+
+    border-radius: 10px;
+}
+
+
+/* ================= SELECTED FILE ================= */
+
+.selected-file {
+    color: #60a5fa;
+
+    font-size: 13px;
+
+    margin-top: 12px;
+
+    white-space: nowrap;
+
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+}
+
+
+/* ================= FORM GROUP ================= */
+
+.form-group {
+    position: relative;
+
+    margin-bottom: 20px;
+}
+
+.form-group:last-child {
+    margin-bottom: 0;
+}
+
+.form-group label {
+    display: block;
+
+    color: #ccc;
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+    margin-bottom: 9px;
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+
+    padding: 14px 15px;
+
+    background: #101010;
+
+    border: 1px solid #333;
+
+    border-radius: 9px;
+
+    color: white;
+
+    font-size: 15px;
+
+    outline: none;
+
+    resize: vertical;
+
+    transition: 0.2s;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    border-color: var(--primary);
+
+    box-shadow:
+        0 0 0 3px rgba(37, 99, 235, 0.12);
+}
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+    color: #666;
+}
+
+.character-count {
+    display: block;
+
+    text-align: right;
+
+    color: #666;
+
+    font-size: 11px;
+
+    margin-top: 5px;
+}
+
+
+/* ================= MESSAGES ================= */
+
+.upload-message {
+    padding: 13px 16px;
+
+    border-radius: 9px;
+
+    font-size: 14px;
+}
+
+.error-message {
+    color: #f87171;
+
+    background: rgba(239, 68, 68, 0.08);
+
+    border: 1px solid rgba(239, 68, 68, 0.2);
+}
+
+.success-message {
+    color: #60a5fa;
+
+    background: rgba(37, 99, 235, 0.08);
+
+    border: 1px solid rgba(37, 99, 235, 0.2);
+}
+
+
+/* ================= ACTIONS ================= */
+
+.upload-actions {
+    display: flex;
+
+    justify-content: flex-end;
+
+    gap: 12px;
+}
+
+.cancel-button,
+.publish-button {
+    padding: 12px 22px;
+
+    border-radius: 9px;
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: 0.2s;
+}
+
+.cancel-button {
+    background: transparent;
+
+    color: #aaa;
+
+    border: 1px solid #333;
+}
+
+.cancel-button:hover {
+    background: #202020;
+
+    color: white;
+}
+
+.publish-button {
+    background: var(--primary);
+
+    color: white;
+
+    border: none;
+}
+
+.publish-button:hover {
+    background: var(--primary-hover);
+
+    transform: translateY(-1px);
+
+    box-shadow:
+        0 8px 20px rgba(37, 99, 235, 0.25);
+}
+
+.publish-button:disabled {
+    opacity: 0.6;
+
+    cursor: not-allowed;
+
+    transform: none;
+
+    box-shadow: none;
+}
+
+
+/* ================= MOBILE ================= */
+
+@media (max-width: 600px) {
+
+    .upload-page {
+        padding: 25px 15px;
+    }
+
+    .upload-header {
+        margin-bottom: 25px;
+    }
+
+    .upload-header h1 {
+        font-size: 25px;
+    }
+
+    .upload-section {
+        padding: 20px;
+    }
+
+    .upload-dropzone,
+    .thumbnail-dropzone {
+        min-height: 220px;
+    }
+
+    .upload-actions {
+        flex-direction: column-reverse;
+    }
+
+    .cancel-button,
+    .publish-button {
+        width: 100%;
+    }
+}
+/* =====================================================
+   MYTUBE HOME PAGE
+   ===================================================== */
+
+.home-page {
+    min-height: calc(100vh - 70px);
+
+    padding: 35px 32px;
+
+    background:
+        radial-gradient(
+            circle at 50% 0%,
+            rgba(37, 99, 235, 0.06),
+            transparent 30%
+        ),
+        #0b0b0b;
+}
+
+
+/* ================= HEADER ================= */
+
+.home-header {
+    max-width: 1400px;
+
+    margin: 0 auto 30px;
+}
+
+.home-header h1 {
+    color: white;
+
+    font-size: 28px;
+
+    margin-bottom: 7px;
+}
+
+.home-header p {
+    color: #888;
+
+    font-size: 14px;
+}
+
+
+/* ================= VIDEO GRID ================= */
+
+.video-grid {
+    width: 100%;
+
+    max-width: 1400px;
+
+    margin: 0 auto;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, minmax(0, 1fr));
+
+    gap: 28px 20px;
+}
+
+
+/* ================= LOADING ================= */
+
+.home-status {
+    min-height: 300px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 15px;
+
+    color: #888;
+}
+
+.loader {
+    width: 35px;
+    height: 35px;
+
+    border: 3px solid #292929;
+
+    border-top-color: var(--primary);
+
+    border-radius: 50%;
+
+    animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.home-status.error {
+    color: #f87171;
+}
+
+
+/* ================= EMPTY STATE ================= */
+
+.empty-videos {
+    min-height: 400px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+    justify-content: center;
+
+    text-align: center;
+}
+
+.empty-icon {
+    width: 70px;
+    height: 70px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    margin-bottom: 20px;
+
+    border-radius: 50%;
+
+    background: rgba(37, 99, 235, 0.12);
+
+    color: var(--primary-light);
+
+    font-size: 25px;
+}
+
+.empty-videos h2 {
+    color: white;
+
+    font-size: 22px;
+
+    margin-bottom: 8px;
+}
+
+.empty-videos p {
+    color: #777;
+
+    font-size: 14px;
+}
+
+
+/* ================= RESPONSIVE ================= */
+
+@media (max-width: 1100px) {
+
+    .video-grid {
+        grid-template-columns:
+            repeat(3, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 800px) {
+
+    .home-page {
+        padding: 25px 18px;
+    }
+
+    .video-grid {
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+
+        gap: 22px 14px;
+    }
+}
+
+@media (max-width: 520px) {
+
+    .home-page {
+        padding: 22px 14px;
+    }
+
+    .home-header h1 {
+        font-size: 24px;
+    }
+
+    .video-grid {
+        grid-template-columns: 1fr;
+
+        gap: 25px;
+    }
+}
+/* =====================================================
+   MYTUBE VIDEO CARD
+   ===================================================== */
+
+.video-card-link {
+    display: block;
+
+    color: inherit;
+
+    text-decoration: none;
+}
+
+
+/* ================= CARD ================= */
+
+.video-card {
+    width: 100%;
+
+    cursor: pointer;
+
+    transition:
+        transform 0.2s ease;
+}
+
+.video-card:hover {
+    transform: translateY(-3px);
+}
+
+
+/* ================= THUMBNAIL ================= */
+
+.video-thumbnail-wrapper {
+    position: relative;
+
+    width: 100%;
+
+    aspect-ratio: 16 / 9;
+
+    overflow: hidden;
+
+    border-radius: 12px;
+
+    background: #181818;
+}
+
+.video-thumbnail {
+    width: 100%;
+    height: 100%;
+
+    display: block;
+
+    object-fit: cover;
+
+    transition:
+        transform 0.3s ease;
+}
+
+.video-card:hover .video-thumbnail {
+    transform: scale(1.04);
+}
+
+
+/* ================= DURATION ================= */
+
+.video-duration {
+    position: absolute;
+
+    right: 8px;
+    bottom: 8px;
+
+    padding: 4px 6px;
+
+    background: rgba(0, 0, 0, 0.85);
+
+    color: white;
+
+    border-radius: 4px;
+
+    font-size: 11px;
+
+    font-weight: 600;
+}
+
+
+/* ================= INFORMATION ================= */
+
+.video-info {
+    padding: 12px 3px 0;
+}
+
+.video-title {
+    color: white;
+
+    font-size: 16px;
+
+    font-weight: 600;
+
+    line-height: 1.4;
+
+    margin: 0 0 6px;
+
+    display: -webkit-box;
+
+    -webkit-line-clamp: 2;
+
+    -webkit-box-orient: vertical;
+
+    overflow: hidden;
+}
+
+.video-description {
+    color: #888;
+
+    font-size: 13px;
+
+    line-height: 1.4;
+
+    margin: 0 0 7px;
+
+    display: -webkit-box;
+
+    -webkit-line-clamp: 1;
+
+    -webkit-box-orient: vertical;
+
+    overflow: hidden;
+}
+
+.video-meta {
+    color: #666;
+
+    font-size: 12px;
+
+    margin: 0;
+}
+
+.video-meta span {
+    color: #555;
+}
+
+
+/* ================= MOBILE ================= */
+
+@media (max-width: 520px) {
+
+    .video-title {
+        font-size: 15px;
+    }
+
+    .video-description {
+        font-size: 12px;
+    }
+
+    .video-meta {
+        font-size: 11px;
+    }
+}
+/* =====================================================
+   MYTUBE WATCH PAGE
+   ===================================================== */
+
+.watch-page {
+    min-height: calc(100vh - 70px);
+
+    padding: 30px 32px 60px;
+
+    background:
+        radial-gradient(
+            circle at 50% 0%,
+            rgba(37, 99, 235, 0.05),
+            transparent 30%
+        ),
+        #0b0b0b;
+}
+
+.watch-container {
+    width: 100%;
+    max-width: 1100px;
+
+    margin: 0 auto;
+}
+
+
+/* ================= PLAYER ================= */
+
+.player-wrapper {
+    width: 100%;
+
+    background: #000;
+
+    border-radius: 14px;
+
+    overflow: hidden;
+
+    box-shadow:
+        0 15px 50px rgba(0, 0, 0, 0.45);
+}
+
+.watch-player {
+    width: 100%;
+
+    display: block;
+
+    aspect-ratio: 16 / 9;
+
+    background: #000;
+
+    object-fit: contain;
+}
+
+
+/* ================= VIDEO INFO ================= */
+
+.watch-info {
+    padding-top: 22px;
+}
+
+.watch-title {
+    color: white;
+
+    font-size: 26px;
+
+    line-height: 1.35;
+
+    margin: 0 0 10px;
+}
+
+.watch-meta {
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    color: #888;
+
+    font-size: 13px;
+
+    margin-bottom: 22px;
+}
+
+
+/* ================= OWNER ================= */
+
+.watch-owner {
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    padding: 16px 0;
+
+    border-top: 1px solid #292929;
+
+    border-bottom: 1px solid #292929;
+}
+
+.watch-owner-avatar {
+    width: 45px;
+    height: 45px;
+
+    border-radius: 50%;
+
+    object-fit: cover;
+
+    border: 2px solid var(--primary);
+}
+
+.watch-owner-info {
+    flex: 1;
+}
+
+.watch-owner-info h3 {
+    color: white;
+
+    font-size: 15px;
+
+    margin-bottom: 4px;
+}
+
+.watch-owner-info p {
+    color: #777;
+
+    font-size: 12px;
+}
+
+
+/* ================= SUBSCRIBE ================= */
+
+.subscribe-button {
+    padding: 10px 18px;
+
+    border: none;
+
+    border-radius: 8px;
+
+    background: var(--primary);
+
+    color: white;
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: 0.2s;
+}
+
+.subscribe-button:hover {
+    background: var(--primary-hover);
+
+    transform: translateY(-1px);
+
+    box-shadow:
+        0 6px 18px rgba(37, 99, 235, 0.25);
+}
+
+
+/* ================= DESCRIPTION ================= */
+
+.watch-description {
+    margin-top: 22px;
+
+    padding: 18px;
+
+    background: #181818;
+
+    border: 1px solid #292929;
+
+    border-radius: 12px;
+}
+
+.watch-description h3 {
+    color: white;
+
+    font-size: 15px;
+
+    margin-bottom: 10px;
+}
+
+.watch-description p {
+    color: #aaa;
+
+    font-size: 14px;
+
+    line-height: 1.6;
+
+    white-space: pre-wrap;
+}
+
+
+/* ================= ACTIONS ================= */
+
+.watch-actions {
+    display: flex;
+
+    gap: 10px;
+
+    margin-top: 18px;
+}
+
+.watch-action {
+    padding: 10px 17px;
+
+    background: #202020;
+
+    color: #ddd;
+
+    border: 1px solid #333;
+
+    border-radius: 20px;
+
+    font-size: 13px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: 0.2s;
+}
+
+.watch-action:hover {
+    background: #292929;
+
+    border-color: #444;
+
+    color: white;
+}
+
+
+/* ================= LOADING ================= */
+
+.watch-loading {
+    min-height: calc(100vh - 70px);
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 15px;
+
+    background: #0b0b0b;
+
+    color: #888;
+}
+
+
+/* ================= ERROR ================= */
+
+.watch-error {
+    min-height: calc(100vh - 70px);
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 12px;
+
+    background: #0b0b0b;
+
+    text-align: center;
+}
+
+.watch-error h2 {
+    color: white;
+}
+
+.watch-error p {
+    color: #777;
+}
+
+.watch-error button {
+    margin-top: 10px;
+
+    padding: 10px 18px;
+
+    border: none;
+
+    border-radius: 8px;
+
+    background: var(--primary);
+
+    color: white;
+
+    cursor: pointer;
+}
+
+
+/* ================= MOBILE ================= */
+
+@media (max-width: 700px) {
+
+    .watch-page {
+        padding: 18px 12px 40px;
+    }
+
+    .player-wrapper {
+        border-radius: 8px;
+    }
+
+    .watch-title {
+        font-size: 21px;
+    }
+
+    .watch-owner {
+        gap: 10px;
+    }
+
+    .subscribe-button {
+        padding: 9px 13px;
+    }
+
+    .watch-actions {
+        flex-wrap: wrap;
+    }
+}
+/* =====================================================
+   CUSTOM VIDEO CONTROLS
+   ===================================================== */
+
+.player-wrapper {
+    position: relative;
+}
+
+.center-play-button {
+    position: absolute;
+
+    top: 50%;
+    left: 50%;
+
+    transform: translate(-50%, -50%);
+
+    width: 72px;
+    height: 72px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border: none;
+    border-radius: 50%;
+
+    background: rgba(37, 99, 235, 0.92);
+
+    color: white;
+
+    font-size: 24px;
+
+    cursor: pointer;
+
+    opacity: 0;
+
+    transition:
+        opacity 0.25s ease,
+        transform 0.2s ease,
+        background 0.2s ease;
+
+    z-index: 5;
+
+    box-shadow:
+        0 8px 30px rgba(0, 0, 0, 0.45);
+}
+
+.center-play-button.visible {
+    opacity: 1;
+}
+
+.center-play-button.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.center-play-button:hover {
+    background: var(--primary-hover);
+
+    transform:
+        translate(-50%, -50%)
+        scale(1.08);
+}
+
+.center-play-button:active {
+    transform:
+        translate(-50%, -50%)
+        scale(0.96);
+}
+.like-button {
+    transition: all 0.2s ease;
+}
+
+.like-button span {
+    margin-left: 5px;
+    color: #999;
+}
+
+.like-button.liked {
+    background: rgba(37, 99, 235, 0.15);
+
+    border-color: var(--primary);
+
+    color: #60a5fa;
+}
+
+.like-button.liked span {
+    color: #60a5fa;
+}
+
+.like-button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+/* =====================================================
+   LOGIN REQUIRED MODAL
+   ===================================================== */
+
+.login-modal-overlay {
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 9999;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    padding: 20px;
+
+    background: rgba(0, 0, 0, 0.72);
+
+    backdrop-filter: blur(7px);
+
+    animation: modalFadeIn 0.2s ease;
+}
+
+
+/* ================= MODAL ================= */
+
+.login-modal {
+    width: 100%;
+
+    max-width: 390px;
+
+    padding: 32px 30px 28px;
+
+    text-align: center;
+
+    background:
+        radial-gradient(
+            circle at 50% 0%,
+            rgba(37, 99, 235, 0.12),
+            transparent 45%
+        ),
+        #161616;
+
+    border: 1px solid #303030;
+
+    border-radius: 20px;
+
+    box-shadow:
+        0 25px 80px rgba(0, 0, 0, 0.65);
+
+    animation: modalSlideUp 0.25s ease;
+}
+
+
+/* ================= ICON ================= */
+
+.login-modal-icon {
+    width: 65px;
+    height: 65px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    margin: 0 auto 18px;
+
+    border-radius: 50%;
+
+    background: rgba(37, 99, 235, 0.13);
+
+    border: 1px solid rgba(37, 99, 235, 0.25);
+
+    font-size: 27px;
+
+    box-shadow:
+        0 0 30px rgba(37, 99, 235, 0.08);
+}
+
+
+/* ================= TEXT ================= */
+
+.login-modal h2 {
+    margin: 0 0 10px;
+
+    color: white;
+
+    font-size: 22px;
+
+    font-weight: 700;
+}
+
+.login-modal p {
+    margin: 0;
+
+    color: #888;
+
+    font-size: 14px;
+
+    line-height: 1.6;
+}
+
+
+/* ================= BUTTONS ================= */
+
+.login-modal-actions {
+    display: flex;
+
+    gap: 10px;
+
+    margin-top: 27px;
+}
+
+.modal-cancel,
+.modal-login {
+    flex: 1;
+
+    padding: 12px 16px;
+
+    border-radius: 9px;
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: all 0.2s ease;
+}
+
+
+/* Cancel */
+
+.modal-cancel {
+    background: #222;
+
+    border: 1px solid #333;
+
+    color: #aaa;
+}
+
+.modal-cancel:hover {
+    background: #292929;
+
+    color: white;
+}
+
+
+/* Login */
+
+.modal-login {
+    background: var(--primary);
+
+    border: 1px solid var(--primary);
+
+    color: white;
+
+    box-shadow:
+        0 6px 20px rgba(37, 99, 235, 0.2);
+}
+
+.modal-login:hover {
+    background: var(--primary-hover);
+
+    transform: translateY(-1px);
+
+    box-shadow:
+        0 9px 25px rgba(37, 99, 235, 0.3);
+}
+
+
+/* ================= ANIMATIONS ================= */
+
+@keyframes modalFadeIn {
+
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes modalSlideUp {
+
+    from {
+        opacity: 0;
+
+        transform:
+            translateY(15px)
+            scale(0.97);
+    }
+
+    to {
+        opacity: 1;
+
+        transform:
+            translateY(0)
+            scale(1);
+    }
+}
+
+
+/* ================= MOBILE ================= */
+
+@media (max-width: 480px) {
+
+    .login-modal {
+        padding: 28px 22px 24px;
+
+        border-radius: 17px;
+    }
+
+    .login-modal-actions {
+        flex-direction: column-reverse;
+    }
+
+    .modal-cancel,
+    .modal-login {
+        width: 100%;
+    }
+}
+/* =====================================================
+   COMMENTS
+   ===================================================== */
+
+.comments-section {
+    margin-top: 35px;
+
+    padding-top: 28px;
+
+    border-top: 1px solid #292929;
+}
+
+
+/* ================= HEADER ================= */
+
+.comments-header h2 {
+    color: white;
+
     font-size: 20px;
-  }
-}
-p {
-  margin: 0;
+
+    margin-bottom: 25px;
 }
 
-code,
-.counter {
-  font-family: var(--mono);
-  display: inline-flex;
-  border-radius: 4px;
-  color: var(--text-h);
+.comments-header h2 span {
+    color: #777;
+
+    font-size: 14px;
+
+    margin-left: 8px;
 }
 
-code {
-  font-size: 15px;
-  line-height: 135%;
-  padding: 4px 8px;
-  background: var(--code-bg);
+
+/* ================= INPUT ================= */
+
+.comment-input-area {
+    display: flex;
+
+    gap: 12px;
+
+    margin-bottom: 30px;
+}
+
+.comment-user-avatar,
+.comment-avatar {
+    width: 40px;
+    height: 40px;
+
+    flex-shrink: 0;
+
+    border-radius: 50%;
+
+    object-fit: cover;
+
+    background: #222;
+}
+
+.comment-input-wrapper {
+    flex: 1;
+}
+
+.comment-input-wrapper textarea {
+    width: 100%;
+
+    padding: 12px 14px;
+
+    background: #151515;
+
+    border: 1px solid #333;
+
+    border-radius: 9px;
+
+    color: white;
+
+    resize: none;
+
+    outline: none;
+
+    font-size: 14px;
+
+    transition: 0.2s;
+}
+
+.comment-input-wrapper textarea:focus {
+    border-color: var(--primary);
+
+    box-shadow:
+        0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+.comment-input-wrapper textarea::placeholder {
+    color: #666;
+}
+
+
+/* ================= INPUT BUTTONS ================= */
+
+.comment-input-actions {
+    display: flex;
+
+    justify-content: flex-end;
+
+    gap: 10px;
+
+    margin-top: 8px;
+}
+
+.comment-cancel,
+.comment-post {
+    padding: 8px 15px;
+
+    border-radius: 7px;
+
+    font-size: 13px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+}
+
+.comment-cancel {
+    background: transparent;
+
+    border: 1px solid #333;
+
+    color: #999;
+}
+
+.comment-post {
+    background: var(--primary);
+
+    border: 1px solid var(--primary);
+
+    color: white;
+}
+
+
+/* ================= COMMENT ================= */
+
+.comment-item {
+    display: flex;
+
+    gap: 12px;
+
+    margin-bottom: 27px;
+}
+
+.comment-body {
+    flex: 1;
+
+    min-width: 0;
+}
+
+.comment-author {
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    margin-bottom: 7px;
+}
+
+.comment-author strong {
+    color: #ddd;
+
+    font-size: 13px;
+}
+
+.comment-author span {
+    color: #666;
+
+    font-size: 11px;
+}
+
+.comment-content {
+    color: #bbb;
+
+    font-size: 14px;
+
+    line-height: 1.5;
+
+    margin: 0 0 9px;
+
+    white-space: pre-wrap;
+}
+
+
+/* ================= ACTIONS ================= */
+
+.comment-actions {
+    display: flex;
+
+    gap: 12px;
+}
+
+.comment-actions button {
+    padding: 0;
+
+    background: transparent;
+
+    border: none;
+
+    color: #777;
+
+    font-size: 12px;
+
+    cursor: pointer;
+}
+
+.comment-actions button:hover {
+    color: white;
+}
+
+
+/* ================= EDIT ================= */
+
+.edit-comment textarea {
+    width: 100%;
+
+    padding: 10px;
+
+    background: #111;
+
+    border: 1px solid #333;
+
+    border-radius: 7px;
+
+    color: white;
+
+    resize: vertical;
+
+    outline: none;
+}
+
+.edit-comment > div {
+    display: flex;
+
+    justify-content: flex-end;
+
+    gap: 8px;
+
+    margin-top: 7px;
+}
+
+.edit-comment button {
+    padding: 7px 12px;
+
+    border-radius: 6px;
+
+    border: 1px solid #333;
+
+    background: #222;
+
+    color: #ccc;
+
+    cursor: pointer;
+}
+
+
+/* ================= EMPTY ================= */
+
+.no-comments {
+    text-align: center;
+
+    padding: 45px 20px;
+
+    color: #666;
+}
+
+.no-comments div {
+    font-size: 30px;
+
+    margin-bottom: 12px;
+}
+
+.no-comments h3 {
+    color: #aaa;
+
+    font-size: 16px;
+
+    margin-bottom: 6px;
+}
+
+.no-comments p {
+    font-size: 13px;
+}
+
+
+/* ================= LOADING ================= */
+
+.comments-loading {
+    padding: 30px 0;
+
+    color: #666;
+
+    font-size: 14px;
+}
+
+
+/* ================= MOBILE ================= */
+
+@media (max-width: 600px) {
+
+    .comment-item {
+        gap: 9px;
+    }
+
+    .comment-avatar,
+    .comment-user-avatar {
+        width: 34px;
+        height: 34px;
+    }
+
+    .comment-content {
+        font-size: 13px;
+    }
+}
+/* =====================================================
+   COMMENT EMOJI PICKER
+   ===================================================== */
+
+.comment-textarea-container {
+    position: relative;
+
+    width: 100%;
+}
+
+.comment-textarea-container textarea {
+    width: 100%;
+
+    padding-right: 50px;
+}
+
+.emoji-button {
+    position: absolute;
+
+    right: 12px;
+    bottom: 12px;
+
+    width: 32px;
+    height: 32px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border: none;
+
+    border-radius: 50%;
+
+    background: transparent;
+
+    font-size: 20px;
+
+    cursor: pointer;
+
+    transition: transform 0.2s ease,
+                background 0.2s ease;
+}
+
+.emoji-button:hover {
+    background: #292929;
+
+    transform: scale(1.1);
+}
+
+.emoji-picker-container {
+    position: absolute;
+
+    right: 0;
+
+    bottom: 48px;
+
+    z-index: 100;
+}
+
+.emoji-picker-container .EmojiPickerReact {
+    --epr-bg-color: #181818;
+    --epr-category-label-bg-color: #181818;
+    --epr-text-color: #ddd;
+    --epr-search-input-bg-color: #222;
+    --epr-search-input-text-color: #fff;
+
+    border: 1px solid #333 !important;
+
+    box-shadow:
+        0 15px 50px rgba(0, 0, 0, 0.5);
+}
+.comment-like-button {
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 5px;
+
+    padding: 4px 8px;
+
+    background: transparent;
+
+    border: none;
+
+    border-radius: 8px;
+
+    color: #777;
+
+    font-size: 12px;
+
+    cursor: pointer;
+
+    transition: 0.2s;
+}
+
+.comment-like-button:hover {
+    background: #202020;
+
+    color: white;
+}
+
+.comment-like-button.comment-liked {
+    color: #60a5fa;
+}
+
+.comment-like-button:disabled {
+    opacity: 0.5;
+
+    cursor: not-allowed;
+}
+
+.comment-like-button span {
+    font-size: 12px;
+}
+.subscribe-button.subscribed {
+    background: #222;
+
+    border: 1px solid #444;
+
+    color: #ddd;
+}
+
+.subscribe-button.subscribed:hover {
+    background: #292929;
+
+    border-color: #555;
+}
+
+.subscribe-button:disabled {
+    opacity: 0.6;
+
+    cursor: not-allowed;
+}
+.own-channel {
+    background: #202020;
+    border: 1px solid #333;
+    color: #aaa;
+    cursor: default;
 }

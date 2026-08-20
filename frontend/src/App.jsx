@@ -16,6 +16,7 @@ function App() {
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Register />} />
                 <Route path="/watch/:videoId" element={<Video />} />
+                <Route path="/upload" element={<Upload />} />
                 <Route
                     path="/upload"
                     element={

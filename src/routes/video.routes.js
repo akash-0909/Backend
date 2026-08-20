@@ -24,17 +24,13 @@ router
     );
 router
     .route("/:videoId")
-    .get(getVideoById);
-router
-    .route("/:videoId")
+    .get(getVideoById)
     .patch(
         verifyJWT,
         upload.single("thumbnail"),
         updateVideo
-    );
-router
-    .route("/:videoId")
-    .delete(deleteVideo);
+    )
+    .delete(verifyJWT,deleteVideo);
 router
     .route("/toggle-publish/:videoId")
     .patch(verifyJWT,togglePublishStatus);

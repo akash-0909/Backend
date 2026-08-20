@@ -1,46 +1,95 @@
 import { useState } from "react";
-import api from "../api/axios";
-
+import { useNavigate, Link,useLocation } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
+import "../index.css";
 function Login() {
+    const navigate = useNavigate();
+    const location = useLocation();
+    const from = location.state?.from || "/";
+    const { login } = useAuth();
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [error, setError] = useState("");
+    const [loading, setLoading] = useState(false);
+    const [showPassword, setShowPassword] = useState(false);
+    const handleLogin = async (e) => {
+        e.preventDefault();
+        setError("");
 
-    const handleLogin = async () => {
+        if (!email || !password) {
+            setError("Please fill all fields");
+            return;
+        }
+
         try {
-            const response = await api.post("/users/login", {
+            setLoading(true);
+
+            await login({
                 email,
                 password
             });
 
-            console.log(response.data);
-
+           navigate(from, { replace: true });
         } catch (error) {
-            console.log(error);
+            setError(
+                error.response?.data?.message ||
+                "Login failed. Please try again."
+            );
+        } finally {
+            setLoading(false);
         }
     };
 
     return (
-        <div>
-            <h1>Login</h1>
+        <div className="auth-page">
+            <div className="auth-card">
+                <div className="auth-logo">MyTube</div>
 
-            <input
-                type="email"
-                placeholder="Enter email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-            />
+                <h1>Welcome back</h1>
+                <p className="auth-subtitle">
+                    Sign in to continue watching and sharing videos.
+                </p>
 
-            <input
-                type="password"
-                placeholder="Enter password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-            />
+                <form onSubmit={handleLogin}>
+                    <input
+                        type="email"
+                        placeholder="Email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                    />
 
-            <button onClick={handleLogin}>
-                Login
-            </button>
+                    <div className="password-wrapper">
+                        <input
+                            type={showPassword ? "text" : "password"}
+                            placeholder="Password"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                        />
+
+                        <button
+                            type="button"
+                            className="password-toggle"
+                            onClick={() => setShowPassword(!showPassword)}
+                        >
+                            {showPassword ? "Hide" : "Show"}
+                        </button>
+                    </div>
+
+                    {error && (
+                        <p className="auth-error">{error}</p>
+                    )}
+
+                    <button type="submit" disabled={loading}>
+                        {loading ? "Signing in..." : "Sign In"}
+                    </button>
+                </form>
+
+                <p className="auth-switch">
+                    Don't have an account?{" "}
+                    <Link to="/register">Create account</Link>
+                </p>
+            </div>
         </div>
     );
 }

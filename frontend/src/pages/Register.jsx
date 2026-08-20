@@ -1,113 +1,165 @@
 import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import api from "../api/axios";
-import { useNavigate } from "react-router-dom";
+
 function Register() {
-  const navigate = useNavigate();
-  const [username, setUsername] = useState("");
-  const [email, setEmail] = useState("");
-  const [fullName, setFullName] = useState("");
-  const [password, setPassword] = useState("");
+    const navigate = useNavigate();
 
-  const [avatar, setAvatar] = useState(null);
-  const [coverImage, setCoverImage] = useState(null);
+    const [username, setUsername] = useState("");
+    const [email, setEmail] = useState("");
+    const [fullName, setFullName] = useState("");
+    const [password, setPassword] = useState("");
 
-  const handleRegister = async (e) => {
-    e.preventDefault();
+    const [avatar, setAvatar] = useState(null);
+    const [coverImage, setCoverImage] = useState(null);
 
-    try {
-      const formData = new FormData();
+    const [showPassword, setShowPassword] = useState(false);
+    const [error, setError] = useState("");
+    const [loading, setLoading] = useState(false);
 
-      formData.append("username", username);
-      formData.append("email", email);
-      formData.append("fullName", fullName);
-      formData.append("password", password);
+    const handleRegister = async (e) => {
+        e.preventDefault();
+        setError("");
 
-      formData.append("avatar", avatar);
-      formData.append("coverImage", coverImage);
+        if (!username || !email || !fullName || !password || !avatar) {
+            setError("Please fill all required fields");
+            return;
+        }
 
-      const response = await api.post(
-        "/users/register",
-        formData
-      );
+        try {
+            setLoading(true);
 
-      console.log("REGISTER RESPONSE:", response.data);
+            const formData = new FormData();
 
-      navigate("/login");
+            formData.append("username", username);
+            formData.append("email", email);
+            formData.append("fullName", fullName);
+            formData.append("password", password);
+            formData.append("avatar", avatar);
 
-      //console.log("REGISTER RESPONSE:", response.data);
+            if (coverImage) {
+                formData.append("coverImage", coverImage);
+            }
 
-    } catch (error) {
-      console.log("REGISTER ERROR:", error);
-    }
-  };
+            await api.post("/users/register", formData);
 
-  return (
-    <div>
-      <h1>Register</h1>
+            navigate("/login");
+        } catch (error) {
+            setError(
+                error.response?.data?.message ||
+                "Registration failed. Please try again."
+            );
+        } finally {
+            setLoading(false);
+        }
+    };
 
-      <form onSubmit={handleRegister}>
+    return (
+        <div className="auth-page">
+            <div className="auth-card register-card">
 
-        <input
-          type="text"
-          placeholder="Username"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-        />
+                <div className="auth-logo">
+                    MyTube
+                </div>
 
-        <br /><br />
+                <h1>Create your account</h1>
 
-        <input
-          type="email"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
+                <p className="auth-subtitle">
+                    Join MyTube and start sharing your videos.
+                </p>
 
-        <br /><br />
+                <form onSubmit={handleRegister}>
 
-        <input
-          type="text"
-          placeholder="Full Name"
-          value={fullName}
-          onChange={(e) => setFullName(e.target.value)}
-        />
+                    <input
+                        type="text"
+                        placeholder="Username"
+                        value={username}
+                        onChange={(e) => setUsername(e.target.value)}
+                    />
 
-        <br /><br />
+                    <input
+                        type="text"
+                        placeholder="Full name"
+                        value={fullName}
+                        onChange={(e) => setFullName(e.target.value)}
+                    />
 
-        <input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
+                    <input
+                        type="email"
+                        placeholder="Email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                    />
 
-        <br /><br />
+                    <div className="password-wrapper">
+                        <input
+                            type={showPassword ? "text" : "password"}
+                            placeholder="Password"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                        />
 
-        <label>Avatar:</label>
-        <input
-          type="file"
-          accept="image/*"
-          onChange={(e) => setAvatar(e.target.files[0])}
-        />
+                        <button
+                            type="button"
+                            className="password-toggle"
+                            onClick={() =>
+                                setShowPassword(!showPassword)
+                            }
+                        >
+                            {showPassword ? "Hide" : "Show"}
+                        </button>
+                    </div>
 
-        <br /><br />
+                    <div className="file-section">
+                        <label>Profile picture *</label>
 
-        <label>Cover Image:</label>
-        <input
-          type="file"
-          accept="image/*"
-          onChange={(e) => setCoverImage(e.target.files[0])}
-        />
+                        <input
+                            type="file"
+                            accept="image/*"
+                            onChange={(e) =>
+                                setAvatar(e.target.files[0])
+                            }
+                        />
+                    </div>
 
-        <br /><br />
+                    <div className="file-section">
+                        <label>Cover image</label>
 
-        <button type="submit">
-          Register
-        </button>
+                        <input
+                            type="file"
+                            accept="image/*"
+                            onChange={(e) =>
+                                setCoverImage(e.target.files[0])
+                            }
+                        />
+                    </div>
 
-      </form>
-    </div>
-  );
+                    {error && (
+                        <p className="auth-error">
+                            {error}
+                        </p>
+                    )}
+
+                    <button
+                        type="submit"
+                        disabled={loading}
+                    >
+                        {loading
+                            ? "Creating account..."
+                            : "Create Account"}
+                    </button>
+                </form>
+
+                <p className="auth-switch">
+                    Already have an account?{" "}
+                    <Link to="/login">
+                        Sign in
+                    </Link>
+                </p>
+
+            </div>
+        </div>
+    );
 }
 
 export default Register;
