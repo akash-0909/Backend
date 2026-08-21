@@ -4,6 +4,8 @@ import api from "../api/axios";
 import VideoCard from "../components/VideoCard";
 import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
+import ChannelVideoCard
+    from "../components/ChannelVideoCard";
 function Channel() {
 
     const { username } = useParams();
@@ -231,15 +233,21 @@ function Channel() {
 
                     <div className="channel-video-grid">
 
-                        {videos.map((video) => (
-
-                            <VideoCard
-                                key={video._id}
-                                video={video}
-                            />
-
-                        ))}
-
+                        <div className="channel-video-grid">
+                            {videos.map((video) => (
+                                <ChannelVideoCard
+                                    key={video._id}
+                                    video={video}
+                                    onDelete={(videoId) => {
+                                        setVideos((prev) =>
+                                            prev.filter(
+                                                (video) => video._id !== videoId
+                                            )
+                                        );
+                                    }}
+                                />
+                            ))}
+                        </div>
                     </div>
 
                 )}

@@ -67,7 +67,7 @@ function EditChannel() {
 
             setUser(updatedUser);
 
-            navigate(`/c/${updatedUser.username}`);
+            navigate(`/c/${user.username}`);
 
         } catch (error) {
             console.log("UPDATE CHANNEL ERROR:", error);
