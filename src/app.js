@@ -1,4 +1,5 @@
 import express from 'express';
+import "dotenv/config";
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
 const app = express();
@@ -33,4 +34,11 @@ app.use("/api/v1/likes", likeRoutes);
 import subscriptionRoutes from "./routes/subscription.routes.js";
 
 app.use("/api/v1/subscriptions", subscriptionRoutes);
+
+app.get("/", (req, res) => {
+    res.json({
+        message: "MyTube API is running",
+        version: "v1"
+    });
+});
 export default app;
