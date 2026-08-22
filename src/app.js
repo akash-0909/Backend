@@ -41,4 +41,9 @@ app.get("/", (req, res) => {
         version: "v1"
     });
 });
+app.get("/api/v1/test", (req, res) => {
+    res.json({
+        message: "API routes are working"
+    });
+});
 export default app;
