@@ -28,11 +28,20 @@ const connectDB = async () => {
             `MongoDB connected: ${connectionInstance.connection.host}`
         );
     } catch (error) {
-        console.log(
-            "Error connecting to MongoDB:",
-            error
-        );
-        process.exit(1);
+         console.log("MONGODB ERROR:", error.message);
+
+    if (error.reason?.servers) {
+        for (const [host, server] of error.reason.servers) {
+            console.log(
+                "SERVER:",
+                host,
+                "ERROR:",
+                server.error?.message
+            );
+        }
+    }
+
+    process.exit(1);
     }
 };
 
