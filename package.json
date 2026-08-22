@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "\"project for backed learning\"",
   "type": "module",
+  "engines": {
+  "node": "22.x"
+  },
   "keywords": [
     "javascript",
     "backend",
