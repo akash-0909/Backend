@@ -9,6 +9,7 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import Navbar from "./components/Navbar";
 import Channel from "./pages/Channel";
 import EditChannel from "./pages/EditChannel";
+import EditVideo from "./pages/EditVideo";
 function App() {
     return (
         <BrowserRouter>
@@ -34,6 +35,10 @@ function App() {
                 <Route
                     path="/edit-channel"
                     element={<EditChannel />}
+                />
+                <Route
+                    path="/edit-video/:videoId"
+                    element={<EditVideo />}
                 />
             </Routes>
         </BrowserRouter>

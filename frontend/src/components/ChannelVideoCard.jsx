@@ -30,27 +30,20 @@ function ChannelVideoCard({ video, onDelete }) {
     return (
         <div className="channel-video-card">
 
-            <Link
-                to={`/watch/${video._id}`}
-                className="channel-video-link"
-            >
+            <Link to={`/watch/${video._id}`} className="channel-video-link">
 
                 <div className="channel-video-thumbnail">
-
                     <img
                         src={video.thumbnail}
                         alt={video.title}
                     />
-
                 </div>
 
                 <div className="channel-video-info">
 
                     <h3>{video.title}</h3>
 
-                    <p>
-                        {video.views} views
-                    </p>
+                   {/* // <p>{formatViews(video.views)} views</p> */}
 
                 </div>
 
@@ -58,56 +51,66 @@ function ChannelVideoCard({ video, onDelete }) {
 
             <div className="channel-video-actions">
 
-                <button>
+                <Link
+                    to={`/edit-video/${video._id}`}
+                    className="channel-edit-button"
+                >
                     ✏️ Edit
-                </button>
+                </Link>
 
-                <button onClick={() => setShowDeleteModal(true)}>
+                <button
+                    className="channel-delete-button"
+                    onClick={() => setShowDeleteModal(true)}
+                >
                     🗑️ Delete
                 </button>
 
             </div>
-            {showDeleteModal && (
-                <div className="delete-modal-overlay">
 
-                    <div className="delete-modal">
+            {/* your delete modal stays here */}
+            {
+        showDeleteModal && (
+            <div className="delete-modal-overlay">
 
-                        <div className="delete-modal-icon">
-                            ⚠️
-                        </div>
+                <div className="delete-modal">
 
-                        <h2>Delete this video?</h2>
+                    <div className="delete-modal-icon">
+                        ⚠️
+                    </div>
 
-                        <p>
-                            This action cannot be undone.
-                            Your video will be permanently deleted.
-                        </p>
+                    <h2>Delete this video?</h2>
 
-                        <div className="delete-modal-actions">
+                    <p>
+                        This action cannot be undone.
+                        Your video will be permanently deleted.
+                    </p>
 
-                            <button
-                                className="delete-cancel-btn"
-                                onClick={() => setShowDeleteModal(false)}
-                                disabled={deleting}
-                            >
-                                Cancel
-                            </button>
+                    <div className="delete-modal-actions">
 
-                            <button
-                                className="delete-confirm-btn"
-                                onClick={handleDelete}
-                                disabled={deleting}
-                            >
-                                {deleting ? "Deleting..." : "Delete"}
-                            </button>
+                        <button
+                            className="delete-cancel-btn"
+                            onClick={() => setShowDeleteModal(false)}
+                            disabled={deleting}
+                        >
+                            Cancel
+                        </button>
 
-                        </div>
+                        <button
+                            className="delete-confirm-btn"
+                            onClick={handleDelete}
+                            disabled={deleting}
+                        >
+                            {deleting ? "Deleting..." : "Delete"}
+                        </button>
 
                     </div>
 
                 </div>
-            )}
-        </div>
+
+            </div>
+        )
+    }
+        </div >
     );
 }
 

@@ -516,57 +516,55 @@ function Comments({ videoId }) {
 
                                 {/* ACTIONS */}
 
-                                {user &&
-                                    user._id ===
-                                    comment.owner?._id && (
-                                        <div className="comment-actions">
+                                <div className="comment-actions">
 
-                                            <button
-                                                className={`comment-like-button ${commentLikeStatus[comment._id]
-                                                        ? "comment-liked"
-                                                        : ""
-                                                    }`}
-                                                onClick={() =>
-                                                    handleCommentLike(comment._id)
-                                                }
-                                                disabled={
-                                                    commentLikeLoading[comment._id]
-                                                }
-                                            >
-                                                {commentLikeStatus[comment._id]
-                                                    ? "❤️"
-                                                    : "🤍"}
+                                    {/* LIKE — everyone can use this */}
+                                    {user && (
+                                        <button
+                                            className={`comment-like-button ${commentLikeStatus[comment._id]
+                                                    ? "comment-liked"
+                                                    : ""
+                                                }`}
+                                            onClick={() =>
+                                                handleCommentLike(comment._id)
+                                            }
+                                            disabled={
+                                                commentLikeLoading[comment._id]
+                                            }
+                                        >
+                                            {commentLikeStatus[comment._id]
+                                                ? "❤️"
+                                                : "🤍"}
 
-                                                <span>
-                                                    {commentLikes[comment._id] || 0}
-                                                </span>
-                                            </button>
-
-
-                                            {user &&
-                                                user._id === comment.owner?._id && (
-                                                    <>
-                                                        <button
-                                                            onClick={() =>
-                                                                handleEditStart(comment)
-                                                            }
-                                                        >
-                                                            Edit
-                                                        </button>
-
-                                                        <button
-                                                            onClick={() =>
-                                                                handleDelete(comment._id)
-                                                            }
-                                                        >
-                                                            Delete
-                                                        </button>
-                                                    </>
-                                                )}
-
-                                        </div>
+                                            <span>
+                                                {commentLikes[comment._id] || 0}
+                                            </span>
+                                        </button>
                                     )}
 
+                                    {/* EDIT + DELETE — only comment owner */}
+                                    {user &&
+                                        user._id === comment.owner?._id && (
+                                            <>
+                                                <button
+                                                    onClick={() =>
+                                                        handleEditStart(comment)
+                                                    }
+                                                >
+                                                    Edit
+                                                </button>
+
+                                                <button
+                                                    onClick={() =>
+                                                        handleDelete(comment._id)
+                                                    }
+                                                >
+                                                    Delete
+                                                </button>
+                                            </>
+                                        )}
+
+                                </div>
                             </div>
 
                         </article>
