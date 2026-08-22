@@ -20,7 +20,11 @@ import userRoutes from './routes/user.routes.js';
 app.use('/api/v1/users', userRoutes);
 
 import videoRoutes from "./routes/video.routes.js";
-
+app.get("/api/v1/videos-test", (req, res) => {
+    res.json({
+        message: "Video route area is working"
+    });
+});
 app.use("/api/v1/videos", videoRoutes);
 
 import commentRoutes from "./routes/comment.routes.js";
