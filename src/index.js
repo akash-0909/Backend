@@ -21,4 +21,4 @@ connectDB()
     .catch((err) => {
         console.log("Error occurred while connecting to MongoDB", err);
     }
-    ); src/index.js
+    );
